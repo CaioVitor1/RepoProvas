@@ -29,6 +29,7 @@ export async function insertTest(test: ITestsData){
     }
     )
 }
+
 export async function findTestByDisciplines(){
     return await client.terms.findMany({
         select:{
@@ -36,24 +37,69 @@ export async function findTestByDisciplines(){
             Disciplines:{
                 select:{
                     name: true,
+                    id: true,
                     TeachersDisciplines:{
                         select:{
-                            Tests:{
+                            Tests:{ distinct: ['categoryId'],
                                 select:{
-                                    id: true,
-                                    name: true,
-                                    pdfUrl: true,
-                                    teacherDisciplines:{
-                                        select:{teachers:{select:{name:true}}},
-                                    },
                                     category:{
-                                        select: {name: true}
+                                        select: {id: true, 
+                                                name: true,
+                                                Tests: { 
+                                                    select: { 
+                                                        name: true,
+                                                        
+                                                        teacherDisciplines:{
+                                                            select:{
+                                                                teachers:{
+                                                                    select:{name:true} }, disciplineId: true
+                                                                }
+                                                        }
+                                                    }
+                                                }}
                                     }
-                                }
+                                },
+                                orderBy: [{category: {name: "desc"}}],
                             }
                         }
                     }
                 }
+            }
+        }
+    })
+}
+
+
+export async function findTestByTeachers() {
+    return await client.teachers.findMany({
+        select: {
+            name: true,
+            id: true,
+            TeachersDisciplines: { distinct: ['teacherId'],
+                select: {
+                    Tests: { distinct: ['categoryId'],
+                        select: {
+                            category: { 
+                                select: { 
+                                    id: true,
+                                    name: true,
+                                    Tests: { 
+                                        select: {
+                                            name: true,
+                                            teacherDisciplines: {
+                                                select: {
+                                                    discipline: {select: {name: true}},
+                                                teachers: {select: {name: true}}
+                                                }
+                                            }
+                                        }
+                                    } 
+                                }
+                            }
+                            
+                        }, orderBy: [{category: {name: "desc"}}],
+                    }
+                }, orderBy: [{Tests: {_count: 'desc'}}]
             }
         }
     })

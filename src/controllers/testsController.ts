@@ -13,4 +13,7 @@ export async function testsSeparetedByDisciplines(req: Request, res: Response){
     return res.status(200).send(tests)
 }
 
-//export async testsSeparetedByDisciplines(req: Request, res: Response)
+export async function testsSeparetedByTeacher(req: Request, res: Response){
+    const tests = await testsService.testsByTeachers()
+    return res.status(200).send(tests)
+}
