@@ -23,10 +23,10 @@ export async function testsByDisciplines(){
     const buildTestByDisciplines = testsByDisciplines.map((item) => {
         return{
             periodo: item.number,
-            disciplina: item.Disciplines.map((disciplines) =>{
+            disciplines: item.Disciplines.map((disciplines) =>{
                 return{
-                    discipline: disciplines.name,
-                    categorias: disciplines.TeachersDisciplines[0].Tests.map((categories)=>{
+                    disciplineName: disciplines.name,
+                    categories: disciplines.TeachersDisciplines[0].Tests.map((categories)=>{
                         return{
                             categoryName: categories.category.name,
                             

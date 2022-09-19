@@ -2,7 +2,7 @@ import app from "../src/index"
 import supertest from 'supertest';
 import prisma from "../src/database/postgres"
 import * as testFactory from "./factories/testFactory"
-import createBodyUser from './factories/userFactory'
+
 beforeEach(async () => {
     await prisma.$executeRaw`TRUNCATE TABLE Tests;`
   });
@@ -91,6 +91,14 @@ describe("Test get tests by disciplines ", () => {
         expect(result.status).toEqual(401);
     });
 
+    it("given without token it should return 401", async () => {
+        const token = await testFactory.invalidToken()
+
+        const result = await supertest(app).get("/tests/disciplines")
+        .send()
+        expect(result.status).toEqual(401);
+    });
+
     it("given valid requisiton it should return 200", async () => {
         const token = await testFactory.makeLogin()
 
@@ -114,6 +122,15 @@ describe("Test get tests by teachers ", () => {
 
         const result = await supertest(app).get("/tests/teachers")
         .set({Authorization: `Bearer ${token}`})
+        .send()
+        expect(result.status).toEqual(401);
+    });
+    
+
+    it("given without token it should return 401", async () => {
+        const token = await testFactory.invalidToken()
+
+        const result = await supertest(app).get("/tests/teachers")
         .send()
         expect(result.status).toEqual(401);
     });

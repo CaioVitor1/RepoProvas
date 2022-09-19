@@ -1,8 +1,7 @@
 import app from "../src/index"
 import supertest from 'supertest';
 import prisma from "../src/database/postgres"
-import createBodyUser from './factories/userFactory'
-
+import * as userFactory from "./factories/userFactory"
 beforeEach(async () => {
     await prisma.$executeRaw`TRUNCATE TABLE users;`
   });
@@ -21,8 +20,15 @@ beforeEach(async () => {
         expect(result.status).toEqual(422);
     });
 
+    it("given a invalid password it should return 422", async () => {
+        const body = userFactory.passwordIncorret()
+
+        const result = await supertest(app).post("/signup").send(body);
+        expect(result.status).toEqual(422);
+    });
+
     it("given a valid user it should return 201", async () => {
-       const body = await createBodyUser()
+       const body = await userFactory.createBodyUser()
 
        const result = await supertest(app).post("/signup").send(body);
         
@@ -35,7 +41,7 @@ beforeEach(async () => {
     });
 
     it("given a user already register it should return 409", async () => {
-        const body = await createBodyUser()
+        const body = await userFactory.createBodyUser()
 
         const firstTry = await supertest(app).post("/signup").send(body);
         expect(firstTry.status).toEqual(201);
@@ -51,7 +57,7 @@ beforeEach(async () => {
 describe("Test Login User", () => {
 
     it("given a invalid body user it should return 422", async () => {
-        const body = await createBodyUser()
+        const body = await userFactory.createBodyUser()
 
         const result = await supertest(app).post("/signin").send({
             email: body.email
@@ -61,7 +67,7 @@ describe("Test Login User", () => {
     });
 
     it("given a valid user it should return 200", async () => {
-        const user = await createBodyUser()
+        const user = await userFactory.createBodyUser()
         
         const createUser = await supertest(app).post("/signup").send(user);
 
@@ -77,7 +83,7 @@ describe("Test Login User", () => {
     });
 
     it("given a user no register it should return 401", async () => {
-        const body = await createBodyUser()
+        const body = await userFactory.createBodyUser()
 
         const result = await supertest(app).post("/signin").send({
             email: body.email,

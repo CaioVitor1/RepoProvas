@@ -1,7 +1,7 @@
 import {faker} from "@faker-js/faker"
 import app from "../../src/index"
-import createBodyUser from './userFactory'
 import supertest from 'supertest';
+import * as userFactory from "./userFactory"
 
 export async function createBodyTest(){
     return {
@@ -33,7 +33,7 @@ export async function createInvalidTeacherDisc(){
 }
 
 export async function makeLogin(){
-    const user = await createBodyUser()
+    const user = await userFactory.createBodyUser()
         
         const createUser = await supertest(app).post("/signup").send(user);
 
