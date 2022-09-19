@@ -4,12 +4,13 @@ import * as usersService from "../services/usersService"
 
 export async function signUp(req: Request, res: Response) {
  const user: IUserData = req.body
- await usersService.createUser(user)
- return res.status(201).send("new user create")
+ const insertedUser = await usersService.createUser(user)
+ return res.status(201).send(insertedUser)
 }
 
 export async function signIn(req: Request, res: Response) {
     const user: IUserData = req.body 
-   const token = await usersService.login(user)
-   return res.status(200).send(token)
+    const token = await usersService.login(user)
+   
+    return res.status(200).send(token)
 }

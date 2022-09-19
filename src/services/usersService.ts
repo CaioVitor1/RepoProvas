@@ -16,7 +16,7 @@ export async function createUser(user: IUserData){
      console.log(user)
       //Roles of business: save new user
      const newUser = await usersRepository.insertUser(user)
-     
+     return newUser
 }
 
 export async function login(user: IUserData){

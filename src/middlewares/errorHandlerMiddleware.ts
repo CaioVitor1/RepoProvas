@@ -14,6 +14,10 @@ export default function errorHandler (error: any, req: Request, res: Response, n
   if(error.code === "conflict"){
     return res.status(409).send(error.message)
   }
+  if(error.message === "invalid token"){
+    return res.status(401).send(error.message)
+  }
+
   
   return res.status(500).send(error); // internal server error
 }
