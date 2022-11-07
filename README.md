@@ -17,10 +17,6 @@ No RepoProvas qualquer pessoa pode procurar provas antigas de suas disciplinas e
 ***
 
 # Tecnologias
-<<<<<<< HEAD
-
-=======
->>>>>>> d6cf43197addf1c584289fc0aacfae28f5edd12c
 <div display='flex'>
 <img height="80" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
 <img height="80" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" />
@@ -28,10 +24,6 @@ No RepoProvas qualquer pessoa pode procurar provas antigas de suas disciplinas e
 <img height="80" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original-wordmark.svg" />
 <img height="80" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original-wordmark.svg" />
 <div>
-<<<<<<< HEAD
-
-=======
->>>>>>> d6cf43197addf1c584289fc0aacfae28f5edd12c
 ***
 
 ## :rocket: Rotas
@@ -44,7 +36,7 @@ POST /signup
         "email": "ivan@hotmail.com",
         "password": "Ivan123*",
         "confirmPassowrd": "Ivan123*"
-}
+
 ```
     
 ```yml 
