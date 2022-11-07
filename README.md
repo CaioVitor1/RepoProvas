@@ -1,4 +1,4 @@
-# <p align = "center"> Projeto X </p>
+# <p align = "center"> Projeto Repoprovas </p>
 
 <p align="center">
    <img height="100" width="500" src="src/assets/iconReadMe.svg"/>
